@@ -1,15 +1,15 @@
 const { MongoClient } = require("mongodb");
+require("dotenv").config();
 
 let dbConnection;
 
-const uri =
-  "mongodb+srv://tomilolaaaaa:fOaUyTYl6xjzktcS@cluster0.pjcgedm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
 const localURI = "mongodb://localhost:27017/bookstore";
+
+const connection = process.env.MONGODB_URI || localURI;
 
 module.exports = {
   connectToDb: (cb) => {
-    MongoClient.connect(uri)
+    MongoClient.connect(connection)
       .then((client) => {
         dbConnection = client.db();
         return cb();
